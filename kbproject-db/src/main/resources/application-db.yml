@@ -1,0 +1,36 @@
+pagehelper:
+  helperDialect:  mysql
+  reasonable: false
+  supportMethodsArguments:  true
+  params: count=countSql
+
+mybatis:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    type-aliases-package: com.kabin.kbproject.db.entity
+    mapper-locations: classpath*:com.kabin.kbproject.db.dao/*.xml
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/kbproject??useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username:  root
+    password:  123456
+    druid:
+      initial-size:  10
+      max-active:  50
+      min-idle:  10
+      max-wait:  60000
+      pool-prepared-statements:  true
+      max-pool-prepared-statement-per-connection-size:  20
+      validation-query:  SELECT 1 FROM DUAL
+      test-on-borrow:  false
+      test-on-return:  false
+      test-while-idle:  true
+      time-between-eviction-runs-millis:  60000
+      filters:  stat,wall
+

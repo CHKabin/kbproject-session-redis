@@ -1,0 +1,16 @@
+spring:
+    profiles:
+        active: db,main,common
+    messages:
+        encoding: UTF-8
+
+server:
+    port: 8080
+
+logging:
+    level:
+        root:  ERROR
+        org.springframework:  ERROR
+        org.mybatis:  ERROR
+        com.kabin.kbproject.main:  ERROR
+        com.kabin.kbproject.db:  ERROR
