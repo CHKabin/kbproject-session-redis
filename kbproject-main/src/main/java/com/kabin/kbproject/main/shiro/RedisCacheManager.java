@@ -1,5 +1,6 @@
 package com.kabin.kbproject.main.shiro;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
@@ -31,6 +32,7 @@ public class RedisCacheManager implements CacheManager {
             cache = new ShiroRedisCache<K, V>(redisTemplate, cacheLive, cacheKeyPrefix);
             this.caches.put(name, cache);
         }
+        System.out.println(JSON.toJSONString("cache:" + cache));
         return cache;
     }
 

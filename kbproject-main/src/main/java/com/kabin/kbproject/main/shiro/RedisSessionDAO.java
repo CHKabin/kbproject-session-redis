@@ -1,5 +1,6 @@
 package com.kabin.kbproject.main.shiro;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,11 +31,13 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     @Override
     protected Session doReadSession(Serializable sessionId) {
+        System.out.println("readRedisSession:" + sessionId);
         return (Session) redisTemplate.opsForValue().get(sessionKeyPrefix + sessionId);
     }
 
     @Override
     public void update(Session session) {
+        System.out.println("updateRedisSession:" + session.getId()+ "--" + JSON.toJSONString((session)));
         this.redisTemplate.opsForValue().set(sessionKeyPrefix + session.getId(), session, sessionLive, TimeUnit.MINUTES);
     }
 

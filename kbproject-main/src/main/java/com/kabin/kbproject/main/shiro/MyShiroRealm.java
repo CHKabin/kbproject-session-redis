@@ -1,5 +1,6 @@
 package com.kabin.kbproject.main.shiro;
 
+import com.alibaba.fastjson.JSON;
 import com.kabin.kbproject.db.entity.SysUserEntity;
 import com.kabin.kbproject.db.service.SysUserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -32,8 +33,13 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
-
-        SysUserEntity user = (SysUserEntity) getAvailablePrincipal(principals);
+        Object obj = getAvailablePrincipal(principals);
+        SysUserEntity user = new SysUserEntity();
+        if(obj instanceof SysUserEntity) {
+            user = (SysUserEntity) obj;
+        } else {
+            user = JSON.parseObject(JSON.toJSON(obj).toString(), SysUserEntity.class);
+        }
 
         List<String> roleList= sysUserService.getRolesByUsername(user.getUsername());
         List<String> permissionList= sysUserService.getPermissionsByUserName(user.getUsername());

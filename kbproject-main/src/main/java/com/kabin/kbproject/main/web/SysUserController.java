@@ -22,7 +22,7 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-
+    @RequiresPermissions("user:create")
     @PostMapping("/addUser")
     public Object addUser(SysUserEntity user) {
         SysUserEntity userEntity = PasswordEncry.encrypt(user);
